@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body{
+            background-color: #201924;
+        }
+        .main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        form {
+            background-color: rgb(83 80 86);
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            width: 34%;
+            border-radius: 46px;
+        }
+
+        input {
+            background-color: #564545;
+            padding: 10px;
+            margin: 3px;
+            width: 200px;
+            border-radius: 26px;
+    border: 1px solid deepskyblue;
+        }
+
+        label {
+            font-size: 23px;
+            color: white;
+            margin-top: 22px;
+            margin-bottom: 3px;
+        }
+
+        .submit-css {
+            background-color: #564545;
+            width: 100px;
+            padding: 12px;
+            border-radius: 30px;
+            color: white;
+            font-size: 17px;
+            margin-bottom: 28px;
+            margin-top: 14px;
+        }
+        h1{
+            font-size: 40px;
+            color: white;
+        }
+        p{
+            color: white;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+        <div class="main">
+            <h1>Signup Form</h1>
+    
+    
+            <form onsubmit="signup(); return false ">
+    
+    
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" placeholder="Enter Your First Name" required>
+    
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" placeholder="Enter Your Last Name" required>
+    
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter Your Email " required>
+    
+    
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder=" Enter Your Password" required>
+                
+    
+                <label for="repeatPassword">Repeat Password</label>
+                <input type="password" id="repeatPassword" placeholder="Conform Your password" required>
+    
+                <input type="submit" class="submit-css" value="Signup">
+                <p>already have an account ? <a href="login.html">Login</a> </p>
+            </form>
+            <p id="message"></p>
+        </div>
+
+    
+
+    <script>
+
+function signup() {
+
+var firstName = document.getElementById('firstName').value;
+var lastName = document.getElementById('lastName').value;
+var email = document.getElementById('email').value;
+var password = document.getElementById('password').value;
+var repeatPassword = document.getElementById('repeatPassword').value;
+
+if (password !== repeatPassword) {
+    document.querySelector("#message").innerHTML = 'Passwords do not match, please try again';
+    return;
+}
+
+// axios.post('http://localhost:3000/signup', 
+axios.post('https://login-signup-by-tariq.herokuapp.com/signup' ,{
+
+    firstName,
+    lastName,
+    email,
+    password,
+
+})
+    .then(function (response) {
+        console.log(response.data);
+        document.querySelector("#message").innerHTML = response.data.message;
+    })
+    .catch(function (error) {
+        console.log(error.response.data);
+        document.querySelector("#message").innerHTML = error.response.data.message;
+    });
+}
+      
+    </script>
+
+
+</body>
+
+</html>
